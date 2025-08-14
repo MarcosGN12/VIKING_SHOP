@@ -1,0 +1,15 @@
+<html>
+<body>
+    <h1>VIKING SHOP</h1>
+    {{#bicicletas}}
+    <a href="bicicleta/{{-index}}">{{user}} {{name}}</a><br>
+    {{/bicicletas}}
+
+    {{^bicicletas}}
+    <p>No hay ninguna bicicleta a la venta.</p>
+    {{/bicicletas}}
+
+    <br>
+    <a href="new_post.html">New Bike ad </a>
+</body>
+</html>
