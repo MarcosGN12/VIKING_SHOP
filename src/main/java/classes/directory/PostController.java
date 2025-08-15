@@ -15,8 +15,9 @@ public class PostController {
     private List<Bicicleta> bicicletas = new ArrayList<>();
 
     public PostController(){
-        bicicletas.add(new Bicicleta("Pepe", "RX6", "40", "Mountain", "Cool Bike"));
-        bicicletas.add(new Bicicleta("Mariano", "8RK", "60", "Normal", "Fast Bike"));
+        bicicletas.add(new Bicicleta("RX6", "40", "Mountain", "Cool Bike"));
+        bicicletas.add(new Bicicleta("8RK", "60", "Normal", "Fast Bike"));
+        bicicletas.add(new Bicicleta("49B", "120", "Electric", "Electric Bike"));
     }
 
     @GetMapping("/")

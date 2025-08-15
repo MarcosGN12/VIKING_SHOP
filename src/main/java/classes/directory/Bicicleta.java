@@ -1,8 +1,7 @@
 package classes.directory;
 
 public class Bicicleta {
-    private String user;
-    private String name;
+    private String model;
     private String speed;
     private String type;
     private String description;
@@ -11,29 +10,20 @@ public class Bicicleta {
 
     }
 
-    public Bicicleta(String user, String name, String speed, String type, String description){
+    public Bicicleta(String model, String speed, String type, String description){
         super();
-        this.user = user;
-        this.name = name;
+        this.model = model;
         this.speed = speed;
         this.type = type;
         this.description = description;
     }
 
-    public String getUser(){
-        return user;
-    }
-
-    public void setUser(String user){
-        this.user = user;
-    }
-
     public String getName(){
-        return name;
+        return model;
     }
 
-    public void setName(String name){
-        this.name = name;
+    public void setName(String model){
+        this.model = model;
     }
 
     public String getSpeed(){
@@ -53,5 +43,5 @@ public class Bicicleta {
     public void setDescription(String description){this.description = description;}
 
     @Override
-    public String toString() {return "Post [user=" + user + ", name=" + name + ", speed=" + speed + ", tipo=" + type + " description=" + description + "]";}
+    public String toString() {return "Post [name=" + model + ", speed=" + speed + ", tipo=" + type + " description=" + description + "]";}
 }
