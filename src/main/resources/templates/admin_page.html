@@ -1,0 +1,33 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Home Page</title>
+    <link rel="stylesheet" href="output.css">
+</head>
+<body>
+    <header class="flex h-16">
+        <div class="bg-blue-500 w-1/4 flex justify-center items-center">
+            <h1 class="text-3xl font-bold"><a href="/">VIKING SHOP</a></h1>
+        </div>
+        <div class="bg-blue-800 w-3/4 flex  items-center p-5">
+            <a href="new_post.html">New Bike ad</a>
+        </div>
+    </header>
+
+    <div class="bg-black h-24"></div>
+    <div class="flex flex-col w-full">
+        {{#bicicletas}}
+        <div class="flex flex-col justify-center border-2 border-black p-5">
+            <a>Model: {{name}}</a>
+            <a>Speed: {{speed}} km/h</a>
+            <a>Type: {{type}}</a>
+            <a>Description: {{description}}</a>
+            <a href="bicicleta/{{-index}}" class="text-green-600 hover:text-green-900 px-4 py-2 border rounded">Edit</a>
+            <a href="bicicleta/{{-index}}/delete" class="text-green-600 hover:text-green-900 px-4 py-2 border rounded">Delete</a>
+        </div>
+        <br>
+        {{/bicicletas}}
+    </div>
+
+</body>
+</html>

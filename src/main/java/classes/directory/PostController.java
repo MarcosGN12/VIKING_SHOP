@@ -51,4 +51,11 @@ public class PostController {
 
         return "deleted_post";
     }
+
+    @GetMapping("/admin")
+    public String admin(Model model) {
+        model.addAttribute("bicicletas", bicicletas);
+
+        return "admin_page";
+    }
 }
