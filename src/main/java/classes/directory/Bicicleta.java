@@ -18,11 +18,11 @@ public class Bicicleta {
         this.description = description;
     }
 
-    public String getName(){
+    public String getModel(){
         return model;
     }
 
-    public void setName(String model){
+    public void setModel(String model){
         this.model = model;
     }
 

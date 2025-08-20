@@ -2,9 +2,7 @@ package classes.directory;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 
 import java.util.ArrayList;
@@ -28,10 +26,22 @@ public class PostController {
     }
 
     @PostMapping("/bicicleta/new")
-    public String newPost(Model model, Bicicleta bicicleta){
+    public String newPost(Bicicleta bicicleta){
         bicicletas.add(bicicleta);
 
         return "saved_post";
+    }
+
+    @PutMapping("/bicicleta/{numPost}/edit")
+    public String editPost(@RequestBody @PathVariable int numPost){
+        Bicicleta bicicleta = bicicletas.get(numPost - 1);
+
+        bicicleta.setModel(bicicleta.getModel());
+        bicicleta.setSpeed(bicicleta.getSpeed());
+        bicicleta.setType(bicicleta.getType());
+        bicicleta.setDescription(bicicleta.getDescription());
+
+        return "edit_post";
     }
 
     @GetMapping("/bicicleta/{numPost}")
@@ -46,6 +56,7 @@ public class PostController {
 
     @GetMapping("/bicicleta/{numPost}/delete")
     public String deletePost(Model model, @PathVariable int numPost) {
+
 
         bicicletas.remove(numPost - 1);
 

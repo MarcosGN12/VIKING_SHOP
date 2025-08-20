@@ -1,25 +1,27 @@
 <html>
 <head>
-    <meta charset="UTF-8"/>
+    <meta charset="UTF-8">
+    <title>Home Page</title>
+    <link rel="stylesheet" href="output.css">
 </head>
 <body>
     <form action="bicicleta/new" method="post">
-        <p>Name:</p>
-        <input type='text' name='name'>
+        <p class="font-bold">Model:</p>
+        <input class="border bg-red-500 border-blue-500" type='text' name='model'>
         <p>Speed:</p>
-        <input type='text' name='speed'>
+        <input class="border bg-red-500 border-blue-500" type='text' name='speed'>
         <p>Type:</p>
-        <input type='text' name='type'>
+        <input class="border bg-red-500 border-blue-500" type='text' name='type'>
         <p>Description:</p>
-        <textarea name='text' rows=5 cols = 40></textarea>
+        <textarea class="border bg-red-500 border-blue-500" name='description' rows=5 cols = 40></textarea>
 
         <br>
 
-        <input type='submit' value='Save' />
+        <input class="border bg-red-500 border-blue-500" type='submit' value='Save' />
 
         <br>
 
-        <a href="/admin">Cancel Post</a>
+        <a class="border bg-red-500 border-blue-500" href="/admin">Cancel Post</a>
     </form>
 </body>
 </html>
