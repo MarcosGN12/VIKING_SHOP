@@ -5,13 +5,13 @@
     <link rel="stylesheet" href="output.css">
 </head>
 <body>
-<form action="bicicleta/{{numPost}}/edit" method="post">
+<form action="/bike/{{numBike}}/edit" method="post">
     <p>Model:</p>
-    <input type='text' name='model'>
+    <input type='text' name='model' value='{{model}}'>
     <p>Speed:</p>
-    <input type='text' name='speed'>
+    <input type='text' name='speed' value='{{speed}}'>
     <p>Type:</p>
-    <input type='text' name='type'>
+    <input type='text' name='type' value='{{type}}'>
     <p>Description:</p>
     <textarea name='description' rows=5 cols = 40></textarea>
 
