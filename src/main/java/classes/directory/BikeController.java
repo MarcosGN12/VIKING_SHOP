@@ -14,7 +14,7 @@ public class BikeController {
 
     public BikeController(){
         bikes.add(new Bike(1,"RX6", "40", "Mountain", "Cool Bike"));
-        bikes.add(new Bike(2,"8RK", "60", "Normal", "Fast Bike"));
+        bikes.add(new Bike(2,"8RKF", "60", "Normal", "Fast Bike"));
         bikes.add(new Bike(3,"49B", "120", "Electric", "Electric Bike"));
     }
 
