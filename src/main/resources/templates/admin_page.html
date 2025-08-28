@@ -10,7 +10,7 @@
             <h1 class="text-3xl font-bold"><a href="/">VIKING SHOP</a></h1>
         </div>
         <div class="bg-blue-800 w-3/4 flex  items-center p-5">
-            <a href="new_post.html">New Bike ad</a>
+            <a href="new_bike.html">New Bike ad</a>
         </div>
     </header>
 
@@ -22,8 +22,8 @@
             <a>Speed: {{speed}} km/h</a>
             <a>Type: {{type}}</a>
             <a>Description: {{description}}</a>
-            <a href="bike/{{-index}}/edit" class="text-green-600 hover:text-green-900 px-4 py-2 border rounded">Edit</a>
-            <button onclick="deleteBike(this,'bike/{{-index}}/delete')" class="text-green-600 hover:text-green-900 px-4 py-2 border rounded flex">Delete</button>
+            <a href="bike/{{id}}/edit" class="text-green-600 hover:text-green-900 px-4 py-2 border rounded">Edit</a>
+            <button onclick="deleteBike(this,'bike/{{id}}/delete')" class="text-green-600 hover:text-green-900 px-4 py-2 border rounded flex">Delete</button>
         </div>
         <br>
         {{/bikes}}

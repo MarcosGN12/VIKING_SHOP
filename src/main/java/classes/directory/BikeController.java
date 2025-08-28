@@ -27,33 +27,29 @@ public class BikeController {
 
     @PostMapping("/bike/new")
     public String newBike(Bike bike){
-        int idBicicletaNueva = bikes.size() + 1;
-        bike.setId(idBicicletaNueva);
+        int idNewBike = bikes.size() + 1;
+        bike.setId(idNewBike);
         bikes.add(bike);
 
         return "saved_bike";
     }
 
-    @GetMapping("/bike/{numBike}/edit")
-    public String editFormBike(@PathVariable int numBike, Model model) {
-        Bike bike = bikes.get(numBike - 1);
-        model.addAttribute("numBike", numBike);
-        model.addAttribute("model", bike.getModel());
-        model.addAttribute("speed", bike.getSpeed());
-        model.addAttribute("type", bike.getType());
-        model.addAttribute("description", bike.getDescription());
+    @GetMapping("/bike/{id}/edit")
+    public String editFormBike(@PathVariable int id, Model model) {
+        Bike bike = findBikeById(id);
+        model.addAttribute("bike",bike);
         return "edit_bike";
     }
 
-    @PostMapping("/bike/{numBike}/edit")
-    public String changeBikeData(@PathVariable int numBike,
+    @PostMapping("/bike/{id}/edit")
+    public String changeBikeData(@PathVariable int id,
             @RequestParam String model,
             @RequestParam String speed,
             @RequestParam String type,
             @RequestParam String description
     )
     {
-        Bike bike = bikes.get(numBike - 1);
+        Bike bike = findBikeById(id);
         bike.setModel(model);
         bike.setSpeed(speed);
         bike.setType(type);
@@ -61,20 +57,19 @@ public class BikeController {
         return "redirect:/admin";
     }
 
-    @GetMapping("/bike/{numBike}")
-    public String showBike(Model model, @PathVariable int numBike){
-        Bike bike = bikes.get(numBike - 1);
+    @GetMapping("/bike/{id}")
+    public String showBike(Model model, @PathVariable int id){
+        Bike bike = findBikeById(id);
 
         model.addAttribute("bike", bike);
-        model.addAttribute("numBike", numBike);
 
         return "show_bike";
     }
 
-    @GetMapping("/bike/{numBike}/delete")
-    public String deleteBike(Model model, @PathVariable int numBike) {
+    @GetMapping("/bike/{id}/delete")
+    public String deleteBike(@PathVariable int id) {
 
-        bikes.remove(numBike - 1);
+        bikes.remove(findBikeById(id));
 
         return "deleted_bike";
     }
@@ -84,5 +79,14 @@ public class BikeController {
         model.addAttribute("bikes", bikes);
 
         return "admin_page";
+    }
+
+    private Bike findBikeById(@RequestParam int id){
+        for (int i = 0; i < bikes.size(); i++) {
+            if(bikes.get(i).getId() == id){
+                return bikes.get(i);
+            }
+        }
+        return null;
     }
 }
