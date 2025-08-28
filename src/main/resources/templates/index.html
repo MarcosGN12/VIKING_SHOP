@@ -1,36 +1,15 @@
 <html>
-<head>
-    <meta charset="UTF-8">
-    <title>Home Page</title>
-    <link rel="stylesheet" href="output.css">
-</head>
 <body>
-    <header class="flex h-16">
-        <div class="bg-blue-500 w-1/4 flex justify-center items-center">
-            <h1 class="text-3xl font-bold"><a href="/">VIKING SHOP</a></h1>
-        </div>
-        <div class="bg-blue-800 w-3/4 flex  items-center p-5">
-            <a href="/admin">Admin zone</a>
-        </div>
-    </header>
+    <h1>VIKING SHOP</h1>
+    {{#bicicletas}}
+    <a href="bicicleta/{{-index}}">{{user}} {{name}}</a><br>
+    {{/bicicletas}}
 
-    <div class="bg-black h-24"></div>
-    <div class="flex flex-col w-full">
-        {{#bikes}}
-        <div class="flex flex-col justify-center border-2 border-black p-5">
-            <a>Model: {{model}}</a>
-            <a>Speed: {{speed}} km/h</a>
-            <a>Type: {{type}}</a>
-            <a>Description: {{description}}</a>
-        </div>
-        <br>
-        {{/bikes}}
-    </div>
-
-    {{^bikes}}
-    <p>There aren't any ad of bikes yet</p>
-    {{/bikes}}
+    {{^bicicletas}}
+    <p>No hay ninguna bicicleta a la venta.</p>
+    {{/bicicletas}}
 
     <br>
+    <a href="new_post.html">New Bike ad </a>
 </body>
 </html>
