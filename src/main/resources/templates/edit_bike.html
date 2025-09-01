@@ -1,0 +1,25 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Home Page</title>
+    <link rel="stylesheet" href="output.css">
+</head>
+<body>
+<form action="/bike/{{id}}/edit" method="post">
+    <p>Model:</p>
+    <input type='text' name='model' value='{{bike.model}}'>
+    <p>Speed:</p>
+    <input type='text' name='speed' value='{{bike.speed}}'>
+    <p>Type:</p>
+    <input type='text' name='type' value='{{bike.type}}'>
+    <p>Description:</p>
+    <textarea name='description' rows=5 cols = 40></textarea>
+
+    <br>
+    <input type='submit' value='Save' />
+    <br>
+
+    <a href="/admin">Cancel Editing Post</a>
+</form>
+</body>
+</html>
