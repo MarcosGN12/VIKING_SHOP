@@ -82,9 +82,9 @@ public class BikeController {
     }
 
     private Bike findBikeById(@RequestParam int id){
-        for (int i = 0; i < bikes.size(); i++) {
-            if(bikes.get(i).getId() == id){
-                return bikes.get(i);
+        for (Bike bike: bikes){
+            if(bike.getId() == id){
+                return bike;
             }
         }
         return null;
