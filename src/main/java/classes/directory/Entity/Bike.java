@@ -1,23 +1,33 @@
-package classes.directory;
+package classes.directory.Entity;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity
 public class Bike {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String model;
-    private String speed;
+    private int price;
     private String type;
     private String description;
+    private String color;
 
     public Bike() {
 
     }
 
-    public Bike(int id, String model, String speed, String type, String description) {
+    public Bike(int id, String model, int price, String type, String description, String color) {
         super();
         this.id = id;
         this.model = model;
-        this.speed = speed;
+        this.price = price;
         this.type = type;
         this.description = description;
+        this.color = color;
     }
 
     public int getId() {
@@ -36,12 +46,10 @@ public class Bike {
         this.model = model;
     }
 
-    public String getSpeed() {
-        return speed;
-    }
+    public int getPrice() {return price;}
 
-    public void setSpeed(String speed) {
-        this.speed = speed;
+    public void setPrice(int price) {
+        this.price = price;
     }
 
     public String getType() {
@@ -60,14 +68,19 @@ public class Bike {
         this.description = description;
     }
 
+    public String getColor() {return color;}
+
+    public void setColor(String color) {this.color = color;}
+
     @Override
     public String toString() {
         return "Bike{" +
                 "id=" + id +
                 ", model='" + model + '\'' +
-                ", speed='" + speed + '\'' +
+                ", price='" + price + '\'' +
                 ", type='" + type + '\'' +
                 ", description='" + description + '\'' +
+                ", color='" + color + '\'' +
                 '}';
     }
 }

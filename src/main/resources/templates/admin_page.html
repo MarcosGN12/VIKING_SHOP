@@ -19,8 +19,9 @@
         {{#bikes}}
         <div class="flex flex-col justify-center border-2 border-black p-5">
             <a>Model: {{model}} number</a>
-            <a>Speed: {{speed}} km/h</a>
+            <a>Price: {{price}}€</a>
             <a>Type: {{type}}</a>
+            <a>Color: {{color}}</a>
             <a>Description: {{description}}</a>
             <a href="bike/{{id}}/edit" class="text-green-600 hover:text-green-900 px-4 py-2 border rounded">Edit</a>
             <button onclick="deleteBike(this,'bike/{{id}}/delete')" class="text-green-600 hover:text-green-900 px-4 py-2 border rounded flex">Delete</button>
