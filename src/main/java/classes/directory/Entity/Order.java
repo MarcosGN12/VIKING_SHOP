@@ -7,7 +7,7 @@ import java.util.Date;
 public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
     private Date date;
     private int price;
 
@@ -18,16 +18,16 @@ public class Order {
 
     }
 
-    public Order(int id, Date date, int price, Bike bikes) {
+    public Order(Long id, Date date, int price, Bike bikes) {
         this.id = id;
         this.date = date;
         this.price = price;
         this.bikes = bikes;
     }
 
-    public int getId() {return id;}
+    public Long getId() {return id;}
 
-    public void setId(int id) {this.id = id;}
+    public void setId(Long id) {this.id = id;}
 
     public Date getDate() {return date;}
 

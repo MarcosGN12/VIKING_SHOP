@@ -1,37 +1,29 @@
 package classes.directory.Controller;
 
 import classes.directory.Entity.Bike;
-import org.springframework.beans.factory.annotation.Autowired;
+import classes.directory.Service.BikeService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-
-import java.util.ArrayList;
-import java.util.List;
-
 @Controller
 public class BikeController {
-    private List<Bike> bikes = new ArrayList<>();
+    BikeService bikeService;
 
-    public BikeController(){
-        bikes.add(new Bike(1,"RX6", 40, "Mountain", "Cool Bike", "Blue"));
-        bikes.add(new Bike(2,"8RKF", 60, "Normal", "Fast Bike", "Red"));
-        bikes.add(new Bike(3,"49B", 120, "Electric", "Electric Bike", "Yellow"));
+    public BikeController(BikeService bikeService){
+        this.bikeService = bikeService;
     }
 
     @GetMapping("/")
     public String showBike(Model model){
-        model.addAttribute("bikes", bikes);
+        model.addAttribute("bikes", bikeService.showBike());
 
         return "index";
     }
 
     @PostMapping("/bike/new")
-    public String newBike(Bike bike){
-        int idNewBike = bikes.size() + 1;
-        bike.setId(idNewBike);
-        bikes.add(bike);
+    public String newBike(@ModelAttribute Bike bike){
+        bikeService.newBike(bike);
 
         return "saved_bike";
     }
@@ -44,18 +36,16 @@ public class BikeController {
     }
 
     @PostMapping("/bike/{id}/edit")
-    public String changeBikeData(@PathVariable int id,
+    public String changeBikeData(
+            @PathVariable Long id,
             @RequestParam String model,
             @RequestParam int price,
             @RequestParam String type,
-            @RequestParam String description
+            @RequestParam String description,
+            @RequestParam String color
     )
     {
-        Bike bike = findBikeById(id);
-        bike.setModel(model);
-        bike.setPrice(price);
-        bike.setType(type);
-        bike.setDescription(description);
+        bikeService.changeBikeData(id,model,price,type,description,color);
 
         return "redirect:/admin";
     }
@@ -69,21 +59,21 @@ public class BikeController {
     }
 
     @GetMapping("/bike/{id}/delete")
-    public String deleteBike(@PathVariable int id) {
-        bikes.remove(findBikeById(id));
+    public String deleteBike(@ModelAttribute Bike bike) {
+        bikeService.deleteBike(bike);
 
         return "deleted_bike";
     }
 
     @GetMapping("/admin")
     public String admin(Model model) {
-        model.addAttribute("bikes", bikes);
+        model.addAttribute("bikes", bikeService.showBike());
 
         return "admin_page";
     }
 
     private Bike findBikeById(@RequestParam int id){
-        for (Bike bike: bikes){
+        for (Bike bike: bikeService.showBike()){
             if(bike.getId() == id){
                 return bike;
             }

@@ -29,6 +29,11 @@
         <br>
         {{/bikes}}
     </div>
+
+    {{^bikes}}
+    <p>There is not any ad of bikes, create one</p>
+    {{/bikes}}
+
     <script>
         function deleteBike(button, url) {
           let count = button.count || 0;
