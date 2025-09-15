@@ -1,7 +1,11 @@
 package classes.directory.Controller;
 
 import classes.directory.Entity.Bike;
+import classes.directory.Entity.ColorBike;
+import classes.directory.Entity.TypeBike;
 import classes.directory.Service.BikeService;
+import classes.directory.Service.ColorBikeService;
+import classes.directory.Service.TypeBikeService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -9,30 +13,47 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 public class BikeController {
     BikeService bikeService;
+    ColorBikeService colorBikeService;
+    TypeBikeService typeBikeService;
 
-    public BikeController(BikeService bikeService){
+    public BikeController(BikeService bikeService, ColorBikeService colorBikeService, TypeBikeService typeBikeService){
         this.bikeService = bikeService;
+        this.colorBikeService = colorBikeService;
+        this.typeBikeService = typeBikeService;
     }
 
     @GetMapping("/")
     public String showBike(Model model){
         model.addAttribute("bikes", bikeService.showBike());
+        model.addAttribute("types", typeBikeService.showTypes());
+        model.addAttribute("colors", colorBikeService.showColors());
 
         return "index";
     }
 
+    @GetMapping("/bike/new")
+    public String newBike(Model model){
+        model.addAttribute("types", typeBikeService.showTypes());
+        model.addAttribute("colors", colorBikeService.showColors());
+
+        return "bike/new_bike";
+    }
+
     @PostMapping("/bike/new")
-    public String newBike(@ModelAttribute Bike bike){
+    public String savedBike(@ModelAttribute Bike bike){
         bikeService.newBike(bike);
 
-        return "saved_bike";
+        return "bike/saved_bike";
     }
 
     @GetMapping("/bike/{id}/edit")
     public String editFormBike(@PathVariable int id, Model model) {
         Bike bike = findBikeById(id);
         model.addAttribute("bike",bike);
-        return "edit_bike";
+        model.addAttribute("types",typeBikeService.showTypes());
+        model.addAttribute("colors",colorBikeService.showColors());
+
+        return "bike/edit_bike";
     }
 
     @PostMapping("/bike/{id}/edit")
@@ -40,12 +61,12 @@ public class BikeController {
             @PathVariable Long id,
             @RequestParam String model,
             @RequestParam int price,
-            @RequestParam String type,
+            @RequestParam TypeBike typeBike,
             @RequestParam String description,
-            @RequestParam String color
+            @RequestParam ColorBike colorBike
     )
     {
-        bikeService.changeBikeData(id,model,price,type,description,color);
+        bikeService.changeBikeData(id,model,price,typeBike,description,colorBike);
 
         return "redirect:/admin";
     }
@@ -55,19 +76,21 @@ public class BikeController {
         Bike bike = findBikeById(id);
         model.addAttribute("bike", bike);
 
-        return "show_bike";
+        return "bike/show_bike";
     }
 
     @GetMapping("/bike/{id}/delete")
     public String deleteBike(@ModelAttribute Bike bike) {
         bikeService.deleteBike(bike);
 
-        return "deleted_bike";
+        return "bike/deleted_bike";
     }
 
     @GetMapping("/admin")
     public String admin(Model model) {
         model.addAttribute("bikes", bikeService.showBike());
+        model.addAttribute("types", typeBikeService.showTypes());
+        model.addAttribute("colors", colorBikeService.showColors());
 
         return "admin_page";
     }

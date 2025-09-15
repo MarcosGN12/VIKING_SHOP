@@ -2,18 +2,30 @@
 <head>
     <meta charset="UTF-8">
     <title>Home Page</title>
-    <link rel="stylesheet" href="output.css">
+    <link rel="stylesheet" href="../../static/output.css">
 </head>
 <body>
-    <form action="bike/new" method="post">
+    <form action="/bike/new" method="post">
         <p class="font-bold">Model:</p>
         <input class="border bg-red-500 border-blue-500" type='text' name='model'>
         <p>Price:</p>
         <input class="border bg-red-500 border-blue-500" type='text' name='price'>
+
         <p>Type:</p>
-        <input class="border bg-red-500 border-blue-500" type='text' name='type'>
+        <select name="typeBike" class="border bg-red-500 border-blue-500">
+            {{#types}}
+            <option value="{{id}}">{{name}}</option>
+            {{/types}}
+        </select>
+
         <p>Color:</p>
-        <input class="border bg-red-500 border-blue-500" type='text' name='color'>
+
+        <select name="colorBike" class="border bg-red-500 border-blue-500">
+            {{#colors}}
+            <option value="{{id}}">{{name}}</option>
+            {{/colors}}
+        </select>
+
         <p>Description:</p>
         <textarea class="border bg-red-500 border-blue-500" name='description' rows=5 cols = 40></textarea>
 

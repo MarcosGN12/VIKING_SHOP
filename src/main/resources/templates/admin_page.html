@@ -9,8 +9,10 @@
         <div class="bg-blue-500 w-1/4 flex justify-center items-center">
             <h1 class="text-3xl font-bold"><a href="/">VIKING SHOP</a></h1>
         </div>
-        <div class="bg-blue-800 w-3/4 flex  items-center p-5">
-            <a href="new_bike.html">New Bike ad</a>
+        <div class="bg-blue-800 w-3/4 flex items-center p-5 gap-4">
+            <a href="/bike/new">New Bike ad</a>
+            <a href="new_color.html">New Color</a>
+            <a href="new_type.html">New Type</a>
         </div>
     </header>
 
@@ -18,10 +20,10 @@
     <div class="flex flex-col w-full">
         {{#bikes}}
         <div class="flex flex-col justify-center border-2 border-black p-5">
-            <a>Model: {{model}} number</a>
+            <a>Model: {{model}}</a>
             <a>Price: {{price}}€</a>
-            <a>Type: {{type}}</a>
-            <a>Color: {{color}}</a>
+            <a>Type: {{#typeBike}}{{name}}{{/typeBike}}</a>
+            <a>Color: {{#colorBike}}{{name}}{{/colorBike}}</a>
             <a>Description: {{description}}</a>
             <a href="bike/{{id}}/edit" class="text-green-600 hover:text-green-900 px-4 py-2 border rounded">Edit</a>
             <button onclick="deleteBike(this,'bike/{{id}}/delete')" class="text-green-600 hover:text-green-900 px-4 py-2 border rounded flex">Delete</button>

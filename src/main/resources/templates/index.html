@@ -20,8 +20,8 @@
         <div class="flex flex-col justify-center border-2 border-black p-5">
             <a>Model: {{model}}</a>
             <a>Price: {{price}}€</a>
-            <a>Type: {{type}}</a>
-            <a>Color: {{color}}</a>
+            <a>Type: {{#typeBike}}{{name}}{{/typeBike}}</a>
+            <a>Color: {{#colorBike}}{{name}}{{/colorBike}}</a>
             <a>Description: {{description}}</a>
         </div>
         <br>

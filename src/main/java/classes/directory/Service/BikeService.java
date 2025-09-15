@@ -1,7 +1,8 @@
 package classes.directory.Service;
 
 import classes.directory.Entity.Bike;
-import classes.directory.Entity.User;
+import classes.directory.Entity.ColorBike;
+import classes.directory.Entity.TypeBike;
 import classes.directory.Repository.BikeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,16 +30,17 @@ public class BikeService {
             @PathVariable Long id,
             @RequestParam String model,
             @RequestParam int price,
-            @RequestParam String type,
+            @RequestParam TypeBike typeBike,
             @RequestParam String description,
-            @RequestParam String color){
+            @RequestParam ColorBike colorBike
+    ){
 
         Bike bike = bikeRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("that bike don't exist"));
         bike.setModel(model);
         bike.setPrice(price);
-        bike.setType(type);
+        bike.setTypeBike(typeBike);
         bike.setDescription(description);
-        bike.setColor(color);
+        bike.setColorBike(colorBike);
 
         bikeRepository.save(bike);
     }

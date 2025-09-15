@@ -1,42 +1,38 @@
 package classes.directory.Entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+
 
 @Entity
 public class Bike {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
     private String model;
     private int price;
-    private String type;
+    @ManyToOne
+    private TypeBike typeBike;
     private String description;
-    private String color;
+    @ManyToOne
+    private ColorBike colorBike;
 
     public Bike() {
 
     }
 
-    public Bike(int id, String model, int price, String type, String description, String color) {
+    public Bike(Long id, String model, int price, TypeBike typeBike, String description, ColorBike colorBike) {
         super();
         this.id = id;
         this.model = model;
         this.price = price;
-        this.type = type;
+        this.typeBike = typeBike;
         this.description = description;
-        this.color = color;
+        this.colorBike = colorBike;
     }
 
-    public int getId() {
-        return id;
-    }
+    public Long getId() {return id;}
 
-    public void setId(int id) {
-        this.id = id;
-    }
+    public void setId(Long id) {this.id = id;}
 
     public String getModel() {
         return model;
@@ -52,12 +48,12 @@ public class Bike {
         this.price = price;
     }
 
-    public String getType() {
-        return type;
+    public TypeBike getTypeBike() {
+        return typeBike;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setTypeBike(TypeBike typeBike) {
+        this.typeBike = typeBike;
     }
 
     public String getDescription() {
@@ -68,9 +64,9 @@ public class Bike {
         this.description = description;
     }
 
-    public String getColor() {return color;}
+    public ColorBike getColorBike() {return colorBike;}
 
-    public void setColor(String color) {this.color = color;}
+    public void setColorBike(ColorBike colorBike) {this.colorBike = colorBike;}
 
     @Override
     public String toString() {
@@ -78,9 +74,9 @@ public class Bike {
                 "id=" + id +
                 ", model='" + model + '\'' +
                 ", price='" + price + '\'' +
-                ", type='" + type + '\'' +
+                ", typeBike='" + typeBike + '\'' +
                 ", description='" + description + '\'' +
-                ", color='" + color + '\'' +
+                ", colorBike='" + colorBike + '\'' +
                 '}';
     }
 }

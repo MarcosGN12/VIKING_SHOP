@@ -10,12 +10,23 @@
     <input type='text' name='model' value='{{bike.model}}'>
     <p>Price:</p>
     <input type='text' name='price' value='{{bike.price}}'>
+
     <p>Type:</p>
-    <input type='text' name='type' value='{{bike.type}}'>
+    <select name="typeBike" class="border bg-red-500 border-blue-500">
+        {{#types}}
+        <option value="{{id}}">{{name}}</option>
+        {{/types}}
+    </select>
+
     <p>Color:</p>
-    <input type='text' name='color' value='{{bike.color}}'>
+    <select name="colorBike" class="border bg-red-500 border-blue-500">
+        {{#colors}}
+        <option value="{{id}}">{{name}}</option>
+        {{/colors}}
+    </select>
+
     <p>Description:</p>
-    <textarea name='description' rows=5 cols = 40></textarea>
+    <textarea name='description' rows=5 cols = 40>{{bike.description}}</textarea>
 
     <br>
     <input type='submit' value='Save' />

@@ -48,9 +48,9 @@ public class User {
 
     public void setRole(Boolean role) {this.role = role;}
 
-    public int gettlf() {return tlf;}
+    public int getTlf() {return tlf;}
 
-    public void settlf(int tlf) {this.tlf = tlf;}
+    public void setTlf(int tlf) {this.tlf = tlf;}
 
     public String getName() {return name;}
 
