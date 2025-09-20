@@ -2,14 +2,14 @@
 <head>
     <meta charset="UTF-8">
     <title>Home Page</title>
-    <link rel="stylesheet" href="output.css">
+    <link rel="stylesheet" href="/output.css">
 </head>
 <body>
 <form action="/bike/{{id}}/edit" method="post">
     <p>Model:</p>
-    <input type='text' name='model' value='{{bike.model}}'>
+    <input class="border bg-red-500 border-blue-500" type='text' name='model' value='{{bike.model}}'>
     <p>Price:</p>
-    <input type='text' name='price' value='{{bike.price}}'>
+    <input class="border bg-red-500 border-blue-500" type='number' name='price' value='{{bike.price}}'>
 
     <p>Type:</p>
     <select name="typeBike" class="border bg-red-500 border-blue-500">
@@ -26,13 +26,13 @@
     </select>
 
     <p>Description:</p>
-    <textarea name='description' rows=5 cols = 40>{{bike.description}}</textarea>
+    <textarea class="border bg-red-500 border-blue-500" name='description' rows=5 cols = 40>{{bike.description}}</textarea>
 
     <br>
-    <input type='submit' value='Save' />
+    <input class="border bg-red-500 border-blue-500" type='submit' value='Save' />
     <br>
 
-    <a href="/admin">Cancel Editing Post</a>
+    <a class="border bg-red-500 border-blue-500" href="/bike/index">Cancel Editing Post</a>
 </form>
 </body>
 </html>

@@ -2,16 +2,16 @@
 <head>
     <meta charset="UTF-8">
     <title>Home Page</title>
-    <link rel="stylesheet" href="output.css">
+    <link rel="stylesheet" href="/output.css">
 </head>
 <body>
 <form action="/type/{{id}}/edit" method="post">
-    <p>Model:</p>
-    <input type='text' name='name' value='{{typeBike.name}}'>
-    <input type='submit' value='Save' />
+    <p class="font-bold">Model:</p>
+    <input class="border bg-red-500 border-blue-500" type='text' name='name' value='{{typeBike.name}}'>
+    <input class="border bg-red-500 border-blue-500" type='submit' value='Save' />
     <br>
 
-    <a href="/admin">Cancel Editing Post</a>
+    <a class="border bg-red-500 border-blue-500" href="/type/index">Cancel Editing Post</a>
 </form>
 </body>
 </html>

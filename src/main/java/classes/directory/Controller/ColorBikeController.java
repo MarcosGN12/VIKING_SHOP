@@ -8,15 +8,29 @@ import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class ColorBikeController {
-    ColorBikeService colorsService;
+    ColorBikeService colorBikeService;
 
-    public ColorBikeController(ColorBikeService colorsService){
-        this.colorsService = colorsService;
+    public ColorBikeController(ColorBikeService colorBikeService){
+        this.colorBikeService = colorBikeService;
+    }
+
+    @GetMapping("/color/index")
+    public String indexColor(Model model) {
+        model.addAttribute("colors", colorBikeService.showColors());
+
+        return "color/color_index";
+    }
+
+    @GetMapping("/color/new")
+    public String newColor(Model model){
+        model.addAttribute("colors", colorBikeService.showColors());
+
+        return "color/new_color";
     }
 
     @PostMapping("/color/new")
     public String newColor(@ModelAttribute ColorBike colorBike){
-        colorsService.newColor(colorBike);
+        colorBikeService.newColor(colorBike);
 
         return "color/saved_color";
     }
@@ -35,7 +49,7 @@ public class ColorBikeController {
             @RequestParam String value
     )
     {
-        colorsService.changeColorData(id,name,value);
+        colorBikeService.changeColorData(id,name,value);
 
         return "redirect:/admin";
     }
@@ -50,13 +64,13 @@ public class ColorBikeController {
 
     @GetMapping("/color/{id}/delete")
     public String deleteColor(@ModelAttribute ColorBike colorBike) {
-        colorsService.deleteColor(colorBike);
+        colorBikeService.deleteColor(colorBike);
 
         return "color/deleted_color";
     }
 
     private ColorBike findColorById(@RequestParam int id){
-        for (ColorBike colorBike: colorsService.showColors()){
+        for (ColorBike colorBike: colorBikeService.showColors()){
             if(colorBike.getId() == id){
                 return colorBike;
             }

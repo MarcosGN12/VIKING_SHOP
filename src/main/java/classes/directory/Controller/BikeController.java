@@ -10,6 +10,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Controller
 public class BikeController {
     BikeService bikeService;
@@ -29,6 +32,13 @@ public class BikeController {
         model.addAttribute("colors", colorBikeService.showColors());
 
         return "index";
+    }
+
+    @GetMapping("/bike/index")
+    public String indexBike(Model model) {
+        model.addAttribute("bikes", bikeService.showBike());
+
+        return "bike/bike_index";
     }
 
     @GetMapping("/bike/new")

@@ -8,15 +8,29 @@ import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class TypeBikeController {
-    TypeBikeService typesService;
+    TypeBikeService typeBikeService;
 
-    public TypeBikeController(TypeBikeService typesService){
-        this.typesService = typesService;
+    public TypeBikeController(TypeBikeService typeBikeService){
+        this.typeBikeService = typeBikeService;
+    }
+
+    @GetMapping("/type/index")
+    public String indexType(Model model) {
+        model.addAttribute("types", typeBikeService.showTypes());
+
+        return "type/type_index";
+    }
+
+    @GetMapping("/type/new")
+    public String newType(Model model){
+        model.addAttribute("types", typeBikeService.showTypes());
+
+        return "type/new_type";
     }
 
     @PostMapping("/type/new")
     public String newType(@ModelAttribute TypeBike typeBike){
-        typesService.newType(typeBike);
+        typeBikeService.newType(typeBike);
 
         return "type/saved_type";
     }
@@ -34,7 +48,7 @@ public class TypeBikeController {
             @RequestParam String name
     )
     {
-        typesService.changeTypeData(id,name);
+        typeBikeService.changeTypeData(id,name);
 
         return "redirect:/admin";
     }
@@ -49,13 +63,13 @@ public class TypeBikeController {
 
     @GetMapping("/type/{id}/delete")
     public String deleteType(@ModelAttribute TypeBike typeBike) {
-        typesService.deleteType(typeBike);
+        typeBikeService.deleteType(typeBike);
 
         return "type/deleted_type";
     }
 
     private TypeBike findTypeById(@RequestParam int id){
-        for (TypeBike typeBike: typesService.showTypes()){
+        for (TypeBike typeBike: typeBikeService.showTypes()){
             if(typeBike.getId() == id){
                 return typeBike;
             }

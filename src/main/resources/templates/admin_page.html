@@ -4,31 +4,36 @@
     <title>Home Page</title>
     <link rel="stylesheet" href="output.css">
 </head>
-<body>
-    <header class="flex h-16">
-        <div class="bg-blue-500 w-1/4 flex justify-center items-center">
-            <h1 class="text-3xl font-bold"><a href="/">VIKING SHOP</a></h1>
+<body class="bg-admin">
+    <header class="header-main">
+        <div class="flex items-center h-full">
+            <h1 class="header-title"><a href="/">VIKING SHOP</a></h1>
         </div>
-        <div class="bg-blue-800 w-3/4 flex items-center p-5 gap-4">
-            <a href="/bike/new">New Bike ad</a>
-            <a href="new_color.html">New Color</a>
-            <a href="new_type.html">New Type</a>
-        </div>
+        <nav class="header-nav">
+            <a href="/bike/index" class="header-link">Bikes</a>
+            <a href="/color/index" class="header-link">Colors</a>
+            <a href="/type/index" class="header-link">Types</a>
+            <a href="/admin" class="header-link">Bike routes</a>
+        </nav>
     </header>
 
-    <div class="bg-black h-24"></div>
-    <div class="flex flex-col w-full">
+
+    <div class="flex flex-col w-full items-center bg-container">
         {{#bikes}}
-        <div class="flex flex-col justify-center border-2 border-black p-5">
+        <br>
+        <div class="flex flex-col justify-center border-2 border-black p-5 w-50 b-radius bg-container">
             <a>Model: {{model}}</a>
             <a>Price: {{price}}€</a>
             <a>Type: {{#typeBike}}{{name}}{{/typeBike}}</a>
             <a>Color: {{#colorBike}}{{name}}{{/colorBike}}</a>
             <a>Description: {{description}}</a>
-            <a href="bike/{{id}}/edit" class="text-green-600 hover:text-green-900 px-4 py-2 border rounded">Edit</a>
-            <button onclick="deleteBike(this,'bike/{{id}}/delete')" class="text-green-600 hover:text-green-900 px-4 py-2 border rounded flex">Delete</button>
+            <br>
+            <div class="flex">
+                <a href="bike/{{id}}/edit" class="px-4 py-2 border btn-green">Edit</a>
+                <button onclick="deleteBike(this,'bike/{{id}}/delete')" class="px-4 py-2 border btn-red">Delete</button>
+            </div>
         </div>
-        <br>
+
         {{/bikes}}
     </div>
 
