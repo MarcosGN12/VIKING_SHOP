@@ -22,7 +22,7 @@ public class UserService {
 
     public void newUser(User user){userRepository.save(user);}
 
-    public void changeUserData(
+    public void update(
             @PathVariable Long id,
             @RequestParam String name,
             @RequestParam String surname,

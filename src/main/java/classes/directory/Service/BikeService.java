@@ -26,7 +26,7 @@ public class BikeService {
         bikeRepository.save(bike);
     }
 
-    public void changeBikeData(
+    public void update(
             @PathVariable Long id,
             @RequestParam String model,
             @RequestParam int price,

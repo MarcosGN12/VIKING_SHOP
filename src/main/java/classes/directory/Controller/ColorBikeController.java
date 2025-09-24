@@ -1,17 +1,22 @@
 package classes.directory.Controller;
 
 import classes.directory.Entity.ColorBike;
+import classes.directory.Repository.ColorBikeRepository;
 import classes.directory.Service.ColorBikeService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.EntityNotFoundException;
+
 @Controller
 public class ColorBikeController {
     ColorBikeService colorBikeService;
+    ColorBikeRepository colorBikeRepository;
 
-    public ColorBikeController(ColorBikeService colorBikeService){
+    public ColorBikeController(ColorBikeService colorBikeService, ColorBikeRepository colorBikeRepository){
         this.colorBikeService = colorBikeService;
+        this.colorBikeRepository = colorBikeRepository;
     }
 
     @GetMapping("/color/index")
@@ -36,27 +41,31 @@ public class ColorBikeController {
     }
 
     @GetMapping("/color/{id}/edit")
-    public String editFormColor(@PathVariable int id, Model model) {
-        ColorBike colorBike = findColorById(id);
+    public String editFormColor(@PathVariable Long id, Model model) {
+        ColorBike colorBike = colorBikeRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("That id doesn't exist"));
         model.addAttribute("colorBike",colorBike);
         return "color/edit_color";
     }
 
     @PostMapping("/color/{id}/edit")
-    public String changeColorData(
+    public String update(
             @PathVariable Long id,
             @RequestParam String name,
             @RequestParam String value
-    )
-    {
-        colorBikeService.changeColorData(id,name,value);
+    ) throws Exception{
+        try{
+            colorBikeService.update(id,name,value);
+        }
+        catch (Exception ex){
+            System.out.println("That color don't exist");
+        }
 
         return "redirect:/admin";
     }
 
     @GetMapping("/color/{id}")
-    public String showColor(Model model, @PathVariable int id){
-        ColorBike colorBike = findColorById(id);
+    public String findAll(Model model, @PathVariable Long id){
+        ColorBike colorBike = colorBikeRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("That id doesn't exist"));
         model.addAttribute("colorBike", colorBike);
 
         return "show_color";
@@ -67,14 +76,5 @@ public class ColorBikeController {
         colorBikeService.deleteColor(colorBike);
 
         return "color/deleted_color";
-    }
-
-    private ColorBike findColorById(@RequestParam int id){
-        for (ColorBike colorBike: colorBikeService.showColors()){
-            if(colorBike.getId() == id){
-                return colorBike;
-            }
-        }
-        return null;
     }
 }

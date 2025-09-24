@@ -24,7 +24,7 @@ public class ColorBikeService {
         colorBikeRepository.save(colorBike);
     }
 
-    public void changeColorData(
+    public void update(
             @PathVariable Long id,
             @RequestParam String name,
             @RequestParam String value){

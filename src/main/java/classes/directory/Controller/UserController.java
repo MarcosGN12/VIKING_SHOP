@@ -1,17 +1,22 @@
 package classes.directory.Controller;
 
 import classes.directory.Entity.User;
+import classes.directory.Repository.UserRepository;
 import classes.directory.Service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.EntityNotFoundException;
+
 @Controller
 public class UserController {
     UserService userService;
+    UserRepository userRepository;
 
-    public UserController(UserService userService){
+    public UserController(UserService userService, UserRepository userRepository){
         this.userService = userService;
+        this.userRepository = userRepository;
     }
 
     @PostMapping("/user/new")
@@ -22,8 +27,8 @@ public class UserController {
     }
 
     @GetMapping("/user/{id}/edit")
-    public String editFormUser(@PathVariable int id, Model model) {
-        User user = findUserById(id);
+    public String editFormUser(@PathVariable Long id, Model model) {
+        User user = userRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("that user don't exist"));
         model.addAttribute("user",user);
         return "user/edit_user";
     }
@@ -36,16 +41,21 @@ public class UserController {
             @RequestParam String email,
             @RequestParam String password,
             @RequestParam int tlf
-    )
+    ) throws Exception
     {
-        userService.changeUserData(id,name,surname,email,password,tlf);
+        try{
+            userService.update(id,name,surname,email,password,tlf);
+        }
+        catch (Exception ex){
+            System.out.println("That user don't exist");
+        }
 
         return "redirect:/admin";
     }
 
     @GetMapping("/user/{id}")
-    public String showUser(Model model, @PathVariable int id){
-        User user = findUserById(id);
+    public String showUser(Model model, @PathVariable Long id){
+        User user = userRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("that user don't exist"));
         model.addAttribute("user", user);
 
         return "user/show_user";
@@ -56,14 +66,5 @@ public class UserController {
         userService.deleteUser(user);
 
         return "user/deleted_user";
-    }
-
-    private User findUserById(@RequestParam int id){
-        for (User user: userService.showUser()){
-            if(user.getId() == id){
-                return user;
-            }
-        }
-        return null;
     }
 }

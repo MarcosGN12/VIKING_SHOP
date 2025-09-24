@@ -24,7 +24,7 @@ public class TypeBikeService {
         typeBikeRepository.save(typeBike);
     }
 
-    public void changeTypeData(
+    public void update(
             @PathVariable Long id,
             @RequestParam String name){
 
