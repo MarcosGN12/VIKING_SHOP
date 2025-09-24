@@ -11,18 +11,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import javax.persistence.EntityNotFoundException;
-
 @Controller
 public class BikeController {
     BikeService bikeService;
-    BikeRepository bikeRepository;
     ColorBikeService colorBikeService;
     TypeBikeService typeBikeService;
 
-    public BikeController(BikeService bikeService, BikeRepository bikeRepository, ColorBikeService colorBikeService, TypeBikeService typeBikeService){
+    public BikeController(BikeService bikeService, ColorBikeService colorBikeService, TypeBikeService typeBikeService){
         this.bikeService = bikeService;
-        this.bikeRepository = bikeRepository;
         this.colorBikeService = colorBikeService;
         this.typeBikeService = typeBikeService;
     }
@@ -60,7 +56,7 @@ public class BikeController {
 
     @GetMapping("/bike/{id}/edit")
     public String editFormBike(@PathVariable Long id, Model model) {
-        Bike bike = bikeService.throwExBike(id);
+        Bike bike = bikeService.findBikeById(id);
         model.addAttribute("bike",bike);
         model.addAttribute("types",typeBikeService.showTypes());
         model.addAttribute("colors",colorBikeService.showColors());
@@ -69,7 +65,7 @@ public class BikeController {
     }
 
     @PostMapping("/bike/{id}/edit")
-    public String update(
+    public String updateBike(
             @PathVariable Long id,
             @RequestParam String model,
             @RequestParam int price,
@@ -89,7 +85,7 @@ public class BikeController {
 
     @GetMapping("/bike/{id}")
     public String showBike(Model model, @PathVariable Long id){
-        Bike bike = bikeService.throwExBike(id);
+        Bike bike = bikeService.findBikeById(id);
         model.addAttribute("bike", bike);
 
         return "bike/show_bike";

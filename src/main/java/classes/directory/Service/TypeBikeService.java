@@ -1,6 +1,5 @@
 package classes.directory.Service;
 
-import classes.directory.Entity.Bike;
 import classes.directory.Entity.TypeBike;
 import classes.directory.Repository.TypeBikeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +24,7 @@ public class TypeBikeService {
         typeBikeRepository.save(typeBike);
     }
 
-    public TypeBike throwExType(@PathVariable Long id){
+    public TypeBike findTypeById(@PathVariable Long id) throws EntityNotFoundException{
         return typeBikeRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("that type don't exist"));
     }
 
@@ -33,7 +32,7 @@ public class TypeBikeService {
             @PathVariable Long id,
             @RequestParam String name){
 
-        TypeBike typeBike = throwExType(id);
+        TypeBike typeBike = findTypeById(id);
         typeBike.setName(name);
 
         typeBikeRepository.save(typeBike);

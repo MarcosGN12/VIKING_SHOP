@@ -1,22 +1,17 @@
 package classes.directory.Controller;
 
 import classes.directory.Entity.ColorBike;
-import classes.directory.Repository.ColorBikeRepository;
 import classes.directory.Service.ColorBikeService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import javax.persistence.EntityNotFoundException;
-
 @Controller
 public class ColorBikeController {
     ColorBikeService colorBikeService;
-    ColorBikeRepository colorBikeRepository;
 
-    public ColorBikeController(ColorBikeService colorBikeService, ColorBikeRepository colorBikeRepository){
+    public ColorBikeController(ColorBikeService colorBikeService){
         this.colorBikeService = colorBikeService;
-        this.colorBikeRepository = colorBikeRepository;
     }
 
     @GetMapping("/color/index")
@@ -42,13 +37,13 @@ public class ColorBikeController {
 
     @GetMapping("/color/{id}/edit")
     public String editFormColor(@PathVariable Long id, Model model) {
-        ColorBike colorBike = colorBikeService.throwExColor(id);
+        ColorBike colorBike = colorBikeService.findColorById(id);
         model.addAttribute("colorBike",colorBike);
         return "color/edit_color";
     }
 
     @PostMapping("/color/{id}/edit")
-    public String update(
+    public String updateColor(
             @PathVariable Long id,
             @RequestParam String name,
             @RequestParam String value
@@ -65,7 +60,7 @@ public class ColorBikeController {
 
     @GetMapping("/color/{id}")
     public String findAll(Model model, @PathVariable Long id){
-        ColorBike colorBike = colorBikeService.throwExColor(id);
+        ColorBike colorBike = colorBikeService.findColorById(id);
         model.addAttribute("colorBike", colorBike);
 
         return "show_color";

@@ -1,7 +1,6 @@
 package classes.directory.Controller;
 
 import classes.directory.Entity.TypeBike;
-import classes.directory.Repository.TypeBikeRepository;
 import classes.directory.Service.TypeBikeService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,11 +9,9 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 public class TypeBikeController {
     TypeBikeService typeBikeService;
-    TypeBikeRepository typeBikeRepository;
 
-    public TypeBikeController(TypeBikeService typeBikeService, TypeBikeRepository typeBikeRepository){
+    public TypeBikeController(TypeBikeService typeBikeService){
         this.typeBikeService = typeBikeService;
-        this.typeBikeRepository = typeBikeRepository;
     }
 
     @GetMapping("/type/index")
@@ -40,13 +37,13 @@ public class TypeBikeController {
 
     @GetMapping("/type/{id}/edit")
     public String editFormType(@PathVariable Long id, Model model) {
-        TypeBike typeBike = typeBikeService.throwExType(id);
+        TypeBike typeBike = typeBikeService.findTypeById(id);
         model.addAttribute("typeBike",typeBike);
         return "type/edit_type";
     }
 
     @PostMapping("/type/{id}/edit")
-    public String changeTypeData(
+    public String updateType(
             @PathVariable Long id,
             @RequestParam String name
     ) throws Exception {
@@ -62,7 +59,7 @@ public class TypeBikeController {
 
     @GetMapping("/type/{id}")
     public String showType(Model model, @PathVariable Long id){
-        TypeBike typeBike = typeBikeService.throwExType(id);
+        TypeBike typeBike = typeBikeService.findTypeById(id);
         model.addAttribute("typeBike", typeBike);
 
         return "show_type";

@@ -1,6 +1,5 @@
 package classes.directory.Service;
 
-import classes.directory.Entity.Bike;
 import classes.directory.Entity.ColorBike;
 import classes.directory.Repository.ColorBikeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +24,7 @@ public class ColorBikeService {
         colorBikeRepository.save(colorBike);
     }
 
-    public ColorBike throwExColor(@PathVariable Long id){
+    public ColorBike findColorById(@PathVariable Long id) throws EntityNotFoundException{
         return colorBikeRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("that color don't exist"));
     }
 
@@ -34,7 +33,7 @@ public class ColorBikeService {
             @RequestParam String name,
             @RequestParam String value){
 
-        ColorBike colorBike = throwExColor(id);
+        ColorBike colorBike = findColorById(id);
         colorBike.setName(name);
         colorBike.setValue(value);
 

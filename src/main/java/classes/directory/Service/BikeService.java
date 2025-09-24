@@ -26,7 +26,7 @@ public class BikeService {
         bikeRepository.save(bike);
     }
 
-    public Bike throwExBike(@PathVariable Long id){
+    public Bike findBikeById(@PathVariable Long id) throws EntityNotFoundException{
         return bikeRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("that bike don't exist"));
     }
 
@@ -39,7 +39,7 @@ public class BikeService {
             @RequestParam ColorBike colorBike
     ){
 
-        Bike bike = throwExBike(id);
+        Bike bike = findBikeById(id);
         bike.setModel(model);
         bike.setPrice(price);
         bike.setTypeBike(typeBike);
