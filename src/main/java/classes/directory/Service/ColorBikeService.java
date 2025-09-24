@@ -20,16 +20,20 @@ public class ColorBikeService {
         return colorBikeRepository.findAll();
     }
 
-    public void newColor(ColorBike colorBike){
+    public void createColor(ColorBike colorBike){
         colorBikeRepository.save(colorBike);
     }
 
-    public void update(
+    public ColorBike findColorById(@PathVariable Long id) throws EntityNotFoundException{
+        return colorBikeRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("that color don't exist"));
+    }
+
+    public void updateColor(
             @PathVariable Long id,
             @RequestParam String name,
             @RequestParam String value){
 
-        ColorBike colorBike = colorBikeRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("that color don't exist"));
+        ColorBike colorBike = findColorById(id);
         colorBike.setName(name);
         colorBike.setValue(value);
 

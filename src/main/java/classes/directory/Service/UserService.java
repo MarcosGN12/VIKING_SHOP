@@ -20,9 +20,13 @@ public class UserService {
         return userRepository.findAll();
     }
 
-    public void newUser(User user){userRepository.save(user);}
+    public void createUser(User user){userRepository.save(user);}
 
-    public void update(
+    public User findUserById(@PathVariable Long id) throws EntityNotFoundException{
+        return userRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("that user don't exist"));
+    }
+
+    public void updateUser(
             @PathVariable Long id,
             @RequestParam String name,
             @RequestParam String surname,
@@ -31,7 +35,7 @@ public class UserService {
             @RequestParam int tlf
     )
     {
-        User user = userRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("that user don't exist"));
+        User user = findUserById(id);
         user.setName(name);
         user.setSurname(surname);
         user.setEmail(email);

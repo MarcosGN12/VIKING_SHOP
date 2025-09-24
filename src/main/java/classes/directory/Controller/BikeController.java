@@ -11,18 +11,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import javax.persistence.EntityNotFoundException;
-
 @Controller
 public class BikeController {
     BikeService bikeService;
-    BikeRepository bikeRepository;
     ColorBikeService colorBikeService;
     TypeBikeService typeBikeService;
 
-    public BikeController(BikeService bikeService, BikeRepository bikeRepository, ColorBikeService colorBikeService, TypeBikeService typeBikeService){
+    public BikeController(BikeService bikeService, ColorBikeService colorBikeService, TypeBikeService typeBikeService){
         this.bikeService = bikeService;
-        this.bikeRepository = bikeRepository;
         this.colorBikeService = colorBikeService;
         this.typeBikeService = typeBikeService;
     }
@@ -53,14 +49,14 @@ public class BikeController {
 
     @PostMapping("/bike/new")
     public String savedBike(@ModelAttribute Bike bike){
-        bikeService.newBike(bike);
+        bikeService.createBike(bike);
 
         return "bike/saved_bike";
     }
 
     @GetMapping("/bike/{id}/edit")
     public String editFormBike(@PathVariable Long id, Model model) {
-        Bike bike = bikeRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("that bike don't exist"));
+        Bike bike = bikeService.findBikeById(id);
         model.addAttribute("bike",bike);
         model.addAttribute("types",typeBikeService.showTypes());
         model.addAttribute("colors",colorBikeService.showColors());
@@ -69,7 +65,7 @@ public class BikeController {
     }
 
     @PostMapping("/bike/{id}/edit")
-    public String update(
+    public String updateBike(
             @PathVariable Long id,
             @RequestParam String model,
             @RequestParam int price,
@@ -78,7 +74,7 @@ public class BikeController {
             @RequestParam ColorBike colorBike
     ) throws Exception {
         try {
-            bikeService.update(id,model,price,typeBike,description,colorBike);
+            bikeService.updateBike(id,model,price,typeBike,description,colorBike);
         }
         catch (Exception ex){
             System.out.println("That bike don't exist");
@@ -89,7 +85,7 @@ public class BikeController {
 
     @GetMapping("/bike/{id}")
     public String showBike(Model model, @PathVariable Long id){
-        Bike bike = bikeRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("That id doesn't exist"));
+        Bike bike = bikeService.findBikeById(id);
         model.addAttribute("bike", bike);
 
         return "bike/show_bike";

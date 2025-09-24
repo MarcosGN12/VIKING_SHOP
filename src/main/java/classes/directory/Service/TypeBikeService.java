@@ -20,15 +20,19 @@ public class TypeBikeService {
         return typeBikeRepository.findAll();
     }
 
-    public void newType(TypeBike typeBike){
+    public void createType(TypeBike typeBike){
         typeBikeRepository.save(typeBike);
     }
 
-    public void update(
+    public TypeBike findTypeById(@PathVariable Long id) throws EntityNotFoundException{
+        return typeBikeRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("that type don't exist"));
+    }
+
+    public void updateType(
             @PathVariable Long id,
             @RequestParam String name){
 
-        TypeBike typeBike = typeBikeRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("that type don't exist"));
+        TypeBike typeBike = findTypeById(id);
         typeBike.setName(name);
 
         typeBikeRepository.save(typeBike);
