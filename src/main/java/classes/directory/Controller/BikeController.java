@@ -53,14 +53,14 @@ public class BikeController {
 
     @PostMapping("/bike/new")
     public String savedBike(@ModelAttribute Bike bike){
-        bikeService.newBike(bike);
+        bikeService.createBike(bike);
 
         return "bike/saved_bike";
     }
 
     @GetMapping("/bike/{id}/edit")
     public String editFormBike(@PathVariable Long id, Model model) {
-        Bike bike = bikeRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("that bike don't exist"));
+        Bike bike = bikeService.throwExBike(id);
         model.addAttribute("bike",bike);
         model.addAttribute("types",typeBikeService.showTypes());
         model.addAttribute("colors",colorBikeService.showColors());
@@ -78,7 +78,7 @@ public class BikeController {
             @RequestParam ColorBike colorBike
     ) throws Exception {
         try {
-            bikeService.update(id,model,price,typeBike,description,colorBike);
+            bikeService.updateBike(id,model,price,typeBike,description,colorBike);
         }
         catch (Exception ex){
             System.out.println("That bike don't exist");
@@ -89,7 +89,7 @@ public class BikeController {
 
     @GetMapping("/bike/{id}")
     public String showBike(Model model, @PathVariable Long id){
-        Bike bike = bikeRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("That id doesn't exist"));
+        Bike bike = bikeService.throwExBike(id);
         model.addAttribute("bike", bike);
 
         return "bike/show_bike";

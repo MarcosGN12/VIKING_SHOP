@@ -35,14 +35,14 @@ public class ColorBikeController {
 
     @PostMapping("/color/new")
     public String newColor(@ModelAttribute ColorBike colorBike){
-        colorBikeService.newColor(colorBike);
+        colorBikeService.createColor(colorBike);
 
         return "color/saved_color";
     }
 
     @GetMapping("/color/{id}/edit")
     public String editFormColor(@PathVariable Long id, Model model) {
-        ColorBike colorBike = colorBikeRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("That id doesn't exist"));
+        ColorBike colorBike = colorBikeService.throwExColor(id);
         model.addAttribute("colorBike",colorBike);
         return "color/edit_color";
     }
@@ -54,7 +54,7 @@ public class ColorBikeController {
             @RequestParam String value
     ) throws Exception{
         try{
-            colorBikeService.update(id,name,value);
+            colorBikeService.updateColor(id,name,value);
         }
         catch (Exception ex){
             System.out.println("That color don't exist");
@@ -65,7 +65,7 @@ public class ColorBikeController {
 
     @GetMapping("/color/{id}")
     public String findAll(Model model, @PathVariable Long id){
-        ColorBike colorBike = colorBikeRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("That id doesn't exist"));
+        ColorBike colorBike = colorBikeService.throwExColor(id);
         model.addAttribute("colorBike", colorBike);
 
         return "show_color";

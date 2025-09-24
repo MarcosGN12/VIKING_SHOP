@@ -1,5 +1,6 @@
 package classes.directory.Service;
 
+import classes.directory.Entity.Bike;
 import classes.directory.Entity.User;
 import classes.directory.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,9 +21,13 @@ public class UserService {
         return userRepository.findAll();
     }
 
-    public void newUser(User user){userRepository.save(user);}
+    public void createUser(User user){userRepository.save(user);}
 
-    public void update(
+    public User throwExUser(@PathVariable Long id){
+        return userRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("that user don't exist"));
+    }
+
+    public void updateUser(
             @PathVariable Long id,
             @RequestParam String name,
             @RequestParam String surname,
@@ -31,7 +36,7 @@ public class UserService {
             @RequestParam int tlf
     )
     {
-        User user = userRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("that user don't exist"));
+        User user = throwExUser(id);
         user.setName(name);
         user.setSurname(surname);
         user.setEmail(email);

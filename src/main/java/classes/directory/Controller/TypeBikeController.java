@@ -7,8 +7,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import javax.persistence.EntityNotFoundException;
-
 @Controller
 public class TypeBikeController {
     TypeBikeService typeBikeService;
@@ -35,14 +33,14 @@ public class TypeBikeController {
 
     @PostMapping("/type/new")
     public String newType(@ModelAttribute TypeBike typeBike){
-        typeBikeService.newType(typeBike);
+        typeBikeService.createType(typeBike);
 
         return "type/saved_type";
     }
 
     @GetMapping("/type/{id}/edit")
     public String editFormType(@PathVariable Long id, Model model) {
-        TypeBike typeBike = typeBikeRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("that type don't exist"));
+        TypeBike typeBike = typeBikeService.throwExType(id);
         model.addAttribute("typeBike",typeBike);
         return "type/edit_type";
     }
@@ -53,7 +51,7 @@ public class TypeBikeController {
             @RequestParam String name
     ) throws Exception {
         try {
-            typeBikeService.update(id,name);
+            typeBikeService.updateType(id,name);
         }
         catch (Exception ex){
             System.out.println("That type don't exist");
@@ -64,7 +62,7 @@ public class TypeBikeController {
 
     @GetMapping("/type/{id}")
     public String showType(Model model, @PathVariable Long id){
-        TypeBike typeBike = typeBikeRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("that type don't exist"));
+        TypeBike typeBike = typeBikeService.throwExType(id);
         model.addAttribute("typeBike", typeBike);
 
         return "show_type";

@@ -21,14 +21,14 @@ public class UserController {
 
     @PostMapping("/user/new")
     public String newUser(@ModelAttribute User user){
-        userService.newUser(user);
+        userService.createUser(user);
 
         return "user/saved_user";
     }
 
     @GetMapping("/user/{id}/edit")
     public String editFormUser(@PathVariable Long id, Model model) {
-        User user = userRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("that user don't exist"));
+        User user = userService.throwExUser(id);
         model.addAttribute("user",user);
         return "user/edit_user";
     }
@@ -44,7 +44,7 @@ public class UserController {
     ) throws Exception
     {
         try{
-            userService.update(id,name,surname,email,password,tlf);
+            userService.updateUser(id,name,surname,email,password,tlf);
         }
         catch (Exception ex){
             System.out.println("That user don't exist");
@@ -55,7 +55,7 @@ public class UserController {
 
     @GetMapping("/user/{id}")
     public String showUser(Model model, @PathVariable Long id){
-        User user = userRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("that user don't exist"));
+        User user = userService.throwExUser(id);
         model.addAttribute("user", user);
 
         return "user/show_user";
