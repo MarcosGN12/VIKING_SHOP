@@ -1,0 +1,19 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Home Page</title>
+    <link rel="stylesheet" href="/output.css">
+</head>
+<body>
+<form action="/color/{{id}}/edit" method="post">
+    <p class="font-bold">Name:</p>
+    <input class="border bg-red-500 border-blue-500" type='text' name='name' value='{{colorBike.name}}'>
+    <p class="font-bold">Value:</p>
+    <input class="border bg-red-500 border-blue-500" type='color' name='value' value='{{colorBike.value}}'>
+    <input class="border bg-red-500 border-blue-500" type='submit' value='Save' />
+    <br>
+
+    <a class="border bg-red-500 border-blue-500"  href="/color/index">Cancel Editing Color</a>
+</form>
+</body>
+</html>

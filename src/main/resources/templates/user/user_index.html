@@ -1,0 +1,55 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Home Page</title>
+    <link rel="stylesheet" href="/output.css">
+</head>
+<body>
+<header class="flex h-16">
+    <div class="bg-blue-500 w-1/4 flex justify-center items-center">
+        <h1 class="text-3xl font-bold"><a href="/admin">VIKING SHOP</a></h1>
+    </div>
+    <div class="bg-blue-800 w-3/4 flex items-center p-5 gap-4">
+        <a href="/user/new">New User</a>
+    </div>
+</header>
+
+<div class="bg-black h-24"></div>
+<div class="flex flex-col w-full">
+    {{#users}}
+    <div class="flex flex-col justify-center border-2 border-black p-5">
+            <a>Name: {{name}}</a>
+        <a href="/user/{{id}}/edit" class="text-green-600 hover:text-green-900 px-4 py-2 border rounded">Edit</a>
+        <button onclick="deleteUser(this,'/user/{{id}}/delete')" class="text-green-600 hover:text-green-900 px-4 py-2 border rounded flex">Delete</button>
+    </div>
+    <br>
+    {{/users}}
+</div>
+
+{{^users}}
+<p>There is not any users yet, create one</p>
+{{/users}}
+
+<script>
+    function deleteUser(button, url) {
+      let count = button.count || 0;
+      count++;
+      button.count = count;
+
+      if (count === 1) {
+        button.style.backgroundColor = "red";
+        button.style.color = "white";
+        button.textContent = "Are you sure of deleting this ad?";
+      }
+
+      else if (count === 2) {
+        button.textContent = "One more click to delete it";
+      }
+
+      else if (count === 3) {
+        window.location.href = url;
+      }
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,27 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Home Page</title>
+    <link rel="stylesheet" href="output.css">
+</head>
+<body>
+<form action="/user/{{id}}/edit" method="post">
+    <p>Name:</p>
+    <input type='text' name='name' value='{{user.name}}'>
+    <p>Surname:</p>
+    <input type='text' name='surname' value='{{user.surname}}'>
+    <p>Email:</p>
+    <input type='email' name='email' value='{{user.email}}'>
+    <p>Password:</p>
+    <input type='password' name='password' value='{{user.password}}'>
+    <p>Tlf:</p>
+    <input type='tel' name='tlf' value='{{user.tlf}}'>
+
+    <br>
+    <input type='submit' value='Save' />
+    <br>
+
+    <a href="/admin">Cancel Editing Post</a>
+</form>
+</body>
+</html>
